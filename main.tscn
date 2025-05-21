@@ -1,7 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://b2mva5p85ykjk"]
+[gd_scene load_steps=15 format=3 uid="uid://b2mva5p85ykjk"]
 
 [ext_resource type="Script" path="res://scritpts/PlayerСontroler.gd" id="1_2708k"]
-[ext_resource type="PackedScene" uid="uid://csedweaerefpj" path="res://model/characterhand.tscn" id="2_416jl"]
 [ext_resource type="Texture2D" uid="uid://c72dvicj44uhi" path="res://textures/wispy-grass-meadow_albedo.png" id="2_866pl"]
 [ext_resource type="Texture2D" uid="uid://db4vyiu34mr80" path="res://textures/wispy-grass-meadow_ao.png" id="3_hlp27"]
 [ext_resource type="Texture2D" uid="uid://bk3krfu036qog" path="res://textures/wispy-grass-meadow_height.png" id="4_wt4r6"]
@@ -52,10 +51,6 @@ background_color = Color(0.494118, 0.737255, 1, 1)
 ambient_light_source = 2
 ambient_light_color = Color(0.393086, 0.393086, 0.393085, 0.690196)
 
-[sub_resource type="BoxMesh" id="BoxMesh_x37op"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_gjjm0"]
-
 [node name="main" type="Node3D"]
 
 [node name="PlayerCharacter" type="CharacterBody3D" parent="."]
@@ -68,9 +63,6 @@ shape = SubResource("CapsuleShape3D_52syj")
 [node name="Camera3D" type="Camera3D" parent="PlayerCharacter"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.34667, 0, 1, 0)
 fov = 71.6
-
-[node name="CharacterHand" parent="PlayerCharacter/Camera3D" instance=ExtResource("2_416jl")]
-transform = Transform3D(-0.07, 0, -6.11959e-09, 0, 0.07, 0, 6.11959e-09, 0, -0.07, 0, -1.97546, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -102,12 +94,3 @@ shadow_blur = 0.89
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0wn0b")
-
-[node name="MyCube" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.62406, 4.30308, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MyCube"]
-mesh = SubResource("BoxMesh_x37op")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MyCube"]
-shape = SubResource("BoxShape3D_gjjm0")
