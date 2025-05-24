@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b2mva5p85ykjk"]
+[gd_scene load_steps=16 format=3 uid="uid://b2mva5p85ykjk"]
 
 [ext_resource type="Script" path="res://scritpts/PlayerСontroler.gd" id="1_2708k"]
 [ext_resource type="Texture2D" uid="uid://c72dvicj44uhi" path="res://textures/wispy-grass-meadow_albedo.png" id="2_866pl"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://beujlued57xqc" path="res://textures/wispy-grass-meadow_metallic.png" id="5_561st"]
 [ext_resource type="Texture2D" uid="uid://ccsvkumxei6oo" path="res://textures/wispy-grass-meadow_normal-ogl.png" id="6_nfg8v"]
 [ext_resource type="Texture2D" uid="uid://dh8x2ldnjo0oi" path="res://textures/wispy-grass-meadow_roughness.png" id="7_hv3u2"]
+[ext_resource type="PackedScene" path="res://hud.tscn" id="8_exu22"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_52syj"]
 
@@ -54,7 +55,7 @@ ambient_light_color = Color(0.393086, 0.393086, 0.393085, 0.690196)
 [node name="main" type="Node3D"]
 
 [node name="PlayerCharacter" type="CharacterBody3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 2.39126, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.13119, 0)
 script = ExtResource("1_2708k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCharacter"]
@@ -63,6 +64,8 @@ shape = SubResource("CapsuleShape3D_52syj")
 [node name="Camera3D" type="Camera3D" parent="PlayerCharacter"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.34667, 0, 1, 0)
 fov = 71.6
+
+[node name="HUD" parent="PlayerCharacter" instance=ExtResource("8_exu22")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
