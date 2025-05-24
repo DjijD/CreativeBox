@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://beujlued57xqc" path="res://textures/wispy-grass-meadow_metallic.png" id="5_561st"]
 [ext_resource type="Texture2D" uid="uid://ccsvkumxei6oo" path="res://textures/wispy-grass-meadow_normal-ogl.png" id="6_nfg8v"]
 [ext_resource type="Texture2D" uid="uid://dh8x2ldnjo0oi" path="res://textures/wispy-grass-meadow_roughness.png" id="7_hv3u2"]
-[ext_resource type="PackedScene" path="res://hud.tscn" id="8_exu22"]
+[ext_resource type="PackedScene" uid="uid://bh6ptxinwjsa6" path="res://hud.tscn" id="8_exu22"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_52syj"]
 
