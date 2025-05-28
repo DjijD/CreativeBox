@@ -57,7 +57,6 @@ ambient_light_color = Color(0.393086, 0.393086, 0.393085, 0.690196)
 
 [node name="PlayerCharacter" type="CharacterBody3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.13119, 0)
-collision_mask = 2
 script = ExtResource("1_2708k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCharacter"]
@@ -67,11 +66,12 @@ shape = SubResource("CapsuleShape3D_52syj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.34667, 0, 1, 0)
 fov = 71.6
 
+[node name="RayCast3D" type="RayCast3D" parent="PlayerCharacter/Camera3D"]
+target_position = Vector3(0, 0, -5)
+
 [node name="HUD" parent="PlayerCharacter" instance=ExtResource("8_exu22")]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
-collision_layer = 3
-collision_mask = 3
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(40, 0, 0, 0, 6, 0, 0, 0, 40, 0, 0, 0)
@@ -83,8 +83,6 @@ shape = SubResource("WorldBoundaryShape3D_qxvgr")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.2009)
-collision_layer = 3
-collision_mask = 3
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.993116, 0)

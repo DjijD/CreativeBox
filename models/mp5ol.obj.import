@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cvevgprpjrwry"
+path="res://.godot/imported/mp5ol.obj-1a8d8f3526911f54135d3364966170af.mesh"
+
+[deps]
+
+files=["res://.godot/imported/mp5ol.obj-1a8d8f3526911f54135d3364966170af.mesh"]
+
+source_file="res://models/mp5ol.obj"
+dest_files=["res://.godot/imported/mp5ol.obj-1a8d8f3526911f54135d3364966170af.mesh", "res://.godot/imported/mp5ol.obj-1a8d8f3526911f54135d3364966170af.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

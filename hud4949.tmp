@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://bh6ptxinwjsa6"]
+
+[ext_resource type="Texture2D" uid="uid://dj27ipi72f3em" path="res://hud/heath_bar_background.png" id="1_i7egh"]
+[ext_resource type="Script" path="res://SlotController.gd" id="1_t3u7j"]
+[ext_resource type="Texture2D" uid="uid://bj5qlqq7vygpc" path="res://hud/heath_bar.png" id="2_akdd5"]
+[ext_resource type="Script" path="res://HeathBar.gd" id="3_lk00p"]
+[ext_resource type="Texture2D" uid="uid://bi0jwqh2v6vb7" path="res://hud/slot.png" id="4_0igjc"]
+
+[node name="HUD" type="Node2D"]
+script = ExtResource("1_t3u7j")
+
+[node name="HeathBar" type="TextureProgressBar" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 25.0
+offset_top = 598.0
+offset_right = 409.0
+offset_bottom = 662.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.456182, 0.456182)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+value = 100.0
+texture_under = ExtResource("1_i7egh")
+texture_progress = ExtResource("2_akdd5")
+texture_progress_offset = Vector2(5, 5)
+script = ExtResource("3_lk00p")
+
+[node name="Slot" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.470588)
+position = Vector2(395, 587)
+scale = Vector2(0.238281, 0.238281)
+texture = ExtResource("4_0igjc")
+
+[node name="Label" type="Label" parent="Slot"]
+offset_left = -125.902
+offset_top = -125.902
+offset_right = -98.9018
+offset_bottom = -97.9019
+scale = Vector2(4, 4)
+text = "1
+"
+horizontal_alignment = 1
+
+[node name="Slot2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.470588)
+position = Vector2(484, 587)
+scale = Vector2(0.238281, 0.238281)
+texture = ExtResource("4_0igjc")
+
+[node name="Label" type="Label" parent="Slot2"]
+offset_left = -125.902
+offset_top = -125.902
+offset_right = -98.9018
+offset_bottom = -97.9019
+scale = Vector2(4, 4)
+text = "2
+"
+horizontal_alignment = 1
+
+[node name="Slot3" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.470588)
+position = Vector2(577.5, 587)
+scale = Vector2(0.238281, 0.238281)
+texture = ExtResource("4_0igjc")
+
+[node name="Label" type="Label" parent="Slot3"]
+offset_left = -125.902
+offset_top = -125.902
+offset_right = -98.9018
+offset_bottom = -97.9019
+scale = Vector2(4, 4)
+text = "3
+"
+horizontal_alignment = 1
+
+[node name="Slot4" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.470588)
+position = Vector2(666.5, 587)
+scale = Vector2(0.238281, 0.238281)
+texture = ExtResource("4_0igjc")
+
+[node name="Label" type="Label" parent="Slot4"]
+offset_left = -125.902
+offset_top = -125.902
+offset_right = -98.9018
+offset_bottom = -97.9019
+scale = Vector2(4, 4)
+text = "4
+"
+horizontal_alignment = 1
