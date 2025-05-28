@@ -1,10 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://bh6ptxinwjsa6"]
+[gd_scene load_steps=12 format=3 uid="uid://bh6ptxinwjsa6"]
 
 [ext_resource type="Texture2D" uid="uid://dj27ipi72f3em" path="res://hud/heath_bar_background.png" id="1_i7egh"]
 [ext_resource type="Texture2D" uid="uid://bj5qlqq7vygpc" path="res://hud/heath_bar.png" id="2_akdd5"]
-[ext_resource type="Script" path="res://HeathBar.gd" id="3_lk00p"]
+[ext_resource type="Script" path="res://scritpts/HeathBar.gd" id="3_lk00p"]
+[ext_resource type="Texture2D" path="res://hud/slot.png" id="4_0igjc"]
+[ext_resource type="Script" path="res://scritpts/Slots.gd" id="5_sq5pg"]
+[ext_resource type="Texture2D" path="res://hud/center.png" id="7_mix68"]
+
+[sub_resource type="GDScript" id="GDScript_hk1mn"]
+
+[sub_resource type="GDScript" id="GDScript_7bjh0"]
+
+[sub_resource type="GDScript" id="GDScript_owawm"]
+
+[sub_resource type="GDScript" id="GDScript_pu8j8"]
+
+[sub_resource type="GDScript" id="GDScript_lrh7n"]
 
 [node name="HUD" type="Node2D"]
+script = SubResource("GDScript_hk1mn")
 
 [node name="HeathBar" type="TextureProgressBar" parent="."]
 anchors_preset = 8
@@ -26,3 +40,73 @@ texture_under = ExtResource("1_i7egh")
 texture_progress = ExtResource("2_akdd5")
 texture_progress_offset = Vector2(5, 5)
 script = ExtResource("3_lk00p")
+
+[node name="Center" type="Sprite2D" parent="."]
+position = Vector2(576, 328)
+scale = Vector2(0.0799999, 0.0789457)
+texture = ExtResource("7_mix68")
+flip_h = true
+flip_v = true
+
+[node name="slots" type="Node2D" parent="."]
+position = Vector2(416, 560)
+script = ExtResource("5_sq5pg")
+
+[node name="slot1" type="TextureRect" parent="slots"]
+self_modulate = Color(1, 1, 1, 0.733333)
+offset_right = 56.0
+offset_bottom = 56.0
+texture = ExtResource("4_0igjc")
+expand_mode = 1
+script = SubResource("GDScript_7bjh0")
+
+[node name="icon" type="TextureRect" parent="slots/slot1"]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 56.0
+expand_mode = 1
+
+[node name="slot2" type="TextureRect" parent="slots"]
+self_modulate = Color(1, 1, 1, 0.733333)
+offset_left = 88.0
+offset_right = 144.0
+offset_bottom = 56.0
+texture = ExtResource("4_0igjc")
+expand_mode = 1
+script = SubResource("GDScript_owawm")
+
+[node name="icon" type="TextureRect" parent="slots/slot2"]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 56.0
+expand_mode = 1
+
+[node name="slot3" type="TextureRect" parent="slots"]
+self_modulate = Color(1, 1, 1, 0.733333)
+offset_left = 176.0
+offset_right = 232.0
+offset_bottom = 56.0
+texture = ExtResource("4_0igjc")
+expand_mode = 1
+script = SubResource("GDScript_pu8j8")
+
+[node name="icon" type="TextureRect" parent="slots/slot3"]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 56.0
+expand_mode = 1
+
+[node name="slot4" type="TextureRect" parent="slots"]
+self_modulate = Color(1, 1, 1, 0.733333)
+offset_left = 264.0
+offset_right = 320.0
+offset_bottom = 56.0
+texture = ExtResource("4_0igjc")
+expand_mode = 1
+script = SubResource("GDScript_lrh7n")
+
+[node name="icon" type="TextureRect" parent="slots/slot4"]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 56.0
+expand_mode = 1
