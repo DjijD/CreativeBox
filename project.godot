@@ -22,6 +22,7 @@ folder_colors={
 "res://font/": "yellow",
 "res://hud/": "red",
 "res://materials/": "pink",
+"res://models/": "blue",
 "res://scritpts/": "orange",
 "res://textures/": "green"
 }
