@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://g1xgtbaeu362"]
+
+[ext_resource type="Script" path="res://scritpts/mp5p.gd" id="1_b2h4y"]
+[ext_resource type="ArrayMesh" uid="uid://c4n62vp5c5r1o" path="res://models/mp5.obj" id="2_p5mv6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wkhex"]
+size = Vector3(2.06964, 0.903311, 0.157393)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cagrl"]
+radius = 1.40189
+
+[node name="RigitBody3D" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.462646, -0.886543, 0, 0.886543, 0.462646, -0.563116, 3.28787, 8.04816)
+collision_mask = 2
+contact_monitor = true
+max_contacts_reported = 4
+script = ExtResource("1_b2h4y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.272, 0, 0, 0, 0.272, 0, 0, 0, 0.272, 0, 0, 0)
+mesh = ExtResource("2_p5mv6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0204921, -0.126997, 0.00853992)
+shape = SubResource("BoxShape3D_wkhex")
+
+[node name="PickupZone" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupZone"]
+shape = SubResource("SphereShape3D_cagrl")

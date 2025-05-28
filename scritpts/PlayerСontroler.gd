@@ -20,11 +20,14 @@ const MAX_HEALTH = 100.0
 
 var noclip_enabled := false
 
+# Для урона от падения
 var fall_start_y = 0.0
 var was_on_floor = true
 
+# Позиция для респауна
 var spawn_position = Vector3.ZERO
 
+# Слоты
 var selected_slot_index := 0
 
 @onready var slots_manager = get_node("/root/main/PlayerCharacter/HUD/slots")
