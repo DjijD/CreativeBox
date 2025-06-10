@@ -1,0 +1,233 @@
+[gd_scene load_steps=31 format=3 uid="uid://b2mva5p85ykjk"]
+
+[ext_resource type="Script" path="res://scritpts/PlayerСontroler.gd" id="1_2708k"]
+[ext_resource type="Script" path="res://main.gd" id="1_fc44f"]
+[ext_resource type="Texture2D" uid="uid://c72dvicj44uhi" path="res://textures/wispy-grass-meadow_albedo.png" id="2_866pl"]
+[ext_resource type="Script" path="res://scritpts/ItemDropper.gd" id="2_x830r"]
+[ext_resource type="Texture2D" uid="uid://db4vyiu34mr80" path="res://textures/wispy-grass-meadow_ao.png" id="3_hlp27"]
+[ext_resource type="Script" path="res://scritpts/HeldWeaponController.gd" id="4_poer3"]
+[ext_resource type="Texture2D" uid="uid://bk3krfu036qog" path="res://textures/wispy-grass-meadow_height.png" id="4_wt4r6"]
+[ext_resource type="Texture2D" uid="uid://beujlued57xqc" path="res://textures/wispy-grass-meadow_metallic.png" id="5_561st"]
+[ext_resource type="Script" path="res://scritpts/BagOfPotrons.gd" id="5_r88i3"]
+[ext_resource type="PackedScene" uid="uid://drlcdi233gul0" path="res://items/light_ammunition_box.tscn" id="6_cgvjt"]
+[ext_resource type="Texture2D" uid="uid://ccsvkumxei6oo" path="res://textures/wispy-grass-meadow_normal-ogl.png" id="6_nfg8v"]
+[ext_resource type="Texture2D" uid="uid://dh8x2ldnjo0oi" path="res://textures/wispy-grass-meadow_roughness.png" id="7_hv3u2"]
+[ext_resource type="PackedScene" uid="uid://bh6ptxinwjsa6" path="res://hud.tscn" id="8_exu22"]
+[ext_resource type="PackedScene" uid="uid://g1xgtbaeu362" path="res://items/mp5p.tscn" id="9_abyuu"]
+[ext_resource type="PackedScene" uid="uid://drq7px2cl531r" path="res://items/vectorp.tscn" id="11_1h7e3"]
+[ext_resource type="PackedScene" uid="uid://d4eufmeemj72f" path="res://items/bayonetp.tscn" id="12_m104d"]
+[ext_resource type="PackedScene" uid="uid://d4gfrsysw1e8p" path="res://objects/box.tscn" id="15_su852"]
+[ext_resource type="PackedScene" uid="uid://dk0th0dxrxfn0" path="res://items/heavy_ammunition_box.tscn" id="16_ggtmi"]
+[ext_resource type="PackedScene" uid="uid://bem4v5y1lgpv8" path="res://ivents/fast_zombie_spawner.tscn" id="21_i44wt"]
+[ext_resource type="PackedScene" uid="uid://dhgo4barq0qnr" path="res://ivents/zombie_spawner.tscn" id="22_awqph"]
+[ext_resource type="PackedScene" uid="uid://cgyibrisrxqce" path="res://ivents/giant_zombie_spawner.tscn" id="22_n3vth"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_52syj"]
+
+[sub_resource type="GDScript" id="GDScript_4cs4s"]
+script/source = "extends Node
+
+@export var camera_path: NodePath
+@export var mp5_scene: PackedScene = preload(\"res://items/mp5p.tscn\")
+
+func drop_item_from_camera():
+	if camera_path.is_empty():
+		print(\"Camera path is not set!\")
+		return
+
+	var camera = get_node(camera_path) as Camera3D
+	if camera == null:
+		print(\"Camera not found at path: \", camera_path)
+		return
+
+	# Создаём экземпляр сцены MP5 (RigidBody3D)
+	var mp5_instance = mp5_scene.instantiate() as RigidBody3D
+	if mp5_instance == null:
+		print(\"Failed to instantiate MP5 scene!\")
+		return
+
+	# Позиция перед камерой + немного вверх
+	var forward_offset = camera.global_transform.basis.z * -1.0
+	var up_offset = Vector3.UP * 0.5
+	var spawn_position = camera.global_transform.origin + forward_offset + up_offset
+	mp5_instance.global_transform.origin = spawn_position
+
+	# Добавляем объект в текущую сцену
+	get_tree().get_current_scene().add_child(mp5_instance)
+
+	# Применяем импульс вперёд и вверх
+	var impulse = forward_offset * 4.0 + Vector3.UP * 2.0
+	mp5_instance.apply_impulse(Vector3.ZERO, impulse)
+"
+
+[sub_resource type="Environment" id="Environment_0wn0b"]
+background_mode = 1
+background_color = Color(0.494118, 0.737255, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.393086, 0.393086, 0.393085, 0.690196)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_lc16x"]
+vertices = PackedVector3Array(-39.5, 16.8531, -39.5, -39.5, 16.8531, 39.5, 39.5, 16.8531, 39.5, 39.5, 16.8531, -39.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+cell_height = 8.43
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68ksu"]
+disable_ambient_light = true
+albedo_texture = ExtResource("2_866pl")
+metallic = 0.8
+metallic_specular = 0.36
+metallic_texture = ExtResource("5_561st")
+roughness = 0.96
+roughness_texture = ExtResource("7_hv3u2")
+normal_enabled = true
+normal_scale = -2.3
+normal_texture = ExtResource("6_nfg8v")
+ao_enabled = true
+ao_light_affect = 0.4
+ao_texture = ExtResource("3_hlp27")
+heightmap_enabled = true
+heightmap_scale = -0.8
+heightmap_deep_parallax = true
+heightmap_min_layers = 24
+heightmap_max_layers = 48
+heightmap_flip_tangent = true
+heightmap_flip_binormal = true
+heightmap_texture = ExtResource("4_wt4r6")
+heightmap_flip_texture = true
+backlight_enabled = true
+backlight = Color(0.0937103, 0.149063, 0.0392299, 1)
+uv1_scale = Vector3(4, 4, 4)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t7fda"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_qxvgr"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xgkup"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8j2rq"]
+
+[node name="main" type="Node3D"]
+script = ExtResource("1_fc44f")
+
+[node name="PlayerCharacter" type="CharacterBody3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.13119, 0)
+collision_mask = 2
+script = ExtResource("1_2708k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCharacter"]
+shape = SubResource("CapsuleShape3D_52syj")
+
+[node name="Camera3D" type="Camera3D" parent="PlayerCharacter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.34667, 0, 1, 0)
+fov = 71.6
+script = SubResource("GDScript_4cs4s")
+
+[node name="ItemDropper" type="Node3D" parent="PlayerCharacter/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.44688e-10, -0.491445, 0.010806)
+script = ExtResource("2_x830r")
+
+[node name="HeldWeaponController" type="Node3D" parent="PlayerCharacter/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0132093, 0.0212984, 0.005584)
+script = ExtResource("4_poer3")
+
+[node name="RayCastMP5" type="RayCast3D" parent="PlayerCharacter/Camera3D/HeldWeaponController"]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, 0)
+target_position = Vector3(0, 0, -1.8)
+collision_mask = 2
+
+[node name="RayCastVector" type="RayCast3D" parent="PlayerCharacter/Camera3D/HeldWeaponController"]
+target_position = Vector3(0, 0, -1.1)
+collision_mask = 2
+
+[node name="RayCastBayonet" type="RayCast3D" parent="PlayerCharacter/Camera3D/HeldWeaponController"]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)
+target_position = Vector3(0, 0, -0.75)
+collision_mask = 2
+
+[node name="HUD" parent="PlayerCharacter" instance=ExtResource("8_exu22")]
+
+[node name="BagOfPotrons" type="Node3D" parent="PlayerCharacter"]
+script = ExtResource("5_r88i3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, -7.79022, 0)
+shadow_enabled = true
+shadow_transmittance_bias = -16.0
+shadow_opacity = 0.78
+shadow_blur = 0.89
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0wn0b")
+
+[node name="RigidBody3D3" parent="." instance=ExtResource("9_abyuu")]
+transform = Transform3D(1, 0, 0, 0, 0.462646, -0.886543, 0, 0.886543, 0.462646, 0.345816, 0.37662, 9.22681)
+
+[node name="RigidBody3D" parent="." instance=ExtResource("11_1h7e3")]
+transform = Transform3D(-0.954705, 0, 8.3463e-08, 8.0619e-08, 0.247096, 0.922174, -2.16018e-08, 0.922174, -0.247096, 0.735841, 0.352131, 7.87339)
+
+[node name="RigidBody3D2" parent="." instance=ExtResource("12_m104d")]
+
+[node name="Box" parent="." instance=ExtResource("15_su852")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.0494, 1.88765, -0.154708)
+
+[node name="heavy_ammunition_box" parent="." instance=ExtResource("16_ggtmi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.65839, 0.405416, 0.617769)
+
+[node name="light_ammunition_box" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.135, 0.333117, -1.06184)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_lc16x")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D"]
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(40, 0, 0, 0, 6, 0, 0, 0, 40, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_68ksu")
+mesh = SubResource("PlaneMesh_t7fda")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_qxvgr")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.2009)
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.993116, 0)
+mesh = SubResource("CylinderMesh_xgkup")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_8j2rq")
+
+[node name="ZombieSpawner" parent="NavigationRegion3D" instance=ExtResource("22_awqph")]
+
+[node name="FastZombieSpawner" parent="NavigationRegion3D" instance=ExtResource("21_i44wt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.11581, 0.578485, -4.24022)
+
+[node name="GiantZombieSpawner" parent="NavigationRegion3D" instance=ExtResource("22_n3vth")]
+
+[node name="light_ammunition_box2" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.46318, 0.461504, -1.18515)
+
+[node name="light_ammunition_box3" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.36597, 0.35388, -1.336)
+
+[node name="light_ammunition_box4" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.62571, 0.227177, 0.145665)
+
+[node name="light_ammunition_box5" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7798, 0.266728, -4.63216)
+
+[node name="light_ammunition_box6" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.83205, 0.222562, 1.70617)
+
+[node name="light_ammunition_box7" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.78224, 0.130688, -5.67858)
+
+[node name="light_ammunition_box8" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4355, 0.247354, -4.29815)

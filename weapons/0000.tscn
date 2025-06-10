@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dj3fykl06wtk7"]
+
+[ext_resource type="Script" path="res://scritpts/0000.gd" id="1_jsjhm"]
+
+[node name="0000" type="RayCast3D"]
+target_position = Vector3(0, 0, -1.5)
+script = ExtResource("1_jsjhm")

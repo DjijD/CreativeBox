@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cgyibrisrxqce"]
 
-[ext_resource type="Script" path="res://giant_zombie_spawner.gd" id="1_yxrcg"]
+[ext_resource type="Script" path="res://scritpts/giant_zombie_spawner.gd" id="1_yxrcg"]
 [ext_resource type="PackedScene" uid="uid://b82aehi2t285j" path="res://entitys/giant_zombie_body.tscn" id="2_jxw0b"]
 
 [node name="GiantZombieSpawner" type="Node3D"]

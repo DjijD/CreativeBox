@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d4eufmeemj72f"]
 
 [ext_resource type="ArrayMesh" uid="uid://cgp3t4v5hvvnw" path="res://models/bayonet.obj" id="1_5g6uu"]
-[ext_resource type="Script" path="res://items/bayonetp.gd" id="1_6angc"]
+[ext_resource type="Script" path="res://scritpts/bayonetp.gd" id="1_6angc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gpprh"]
 size = Vector3(0.94698, 0.252142, 0.161346)

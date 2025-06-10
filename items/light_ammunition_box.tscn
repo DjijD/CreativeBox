@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://drlcdi233gul0"]
 
 [ext_resource type="ArrayMesh" uid="uid://5wnihkrvky4j" path="res://models/light_ammunition_box.obj" id="1_g4hgb"]
-[ext_resource type="Script" path="res://items/light_ammunition_box.gd" id="1_irll4"]
+[ext_resource type="Script" path="res://scritpts/light_ammunition_box.gd" id="1_irll4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hq8yk"]
 size = Vector3(0.268799, 0.170563, 0.404785)

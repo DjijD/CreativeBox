@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://brmo1phfw5gyf"]
 
-[ext_resource type="Script" path="res://FastZombieAI.gd" id="1_cbror"]
+[ext_resource type="Script" path="res://scritpts/FastZombieAI.gd" id="1_cbror"]
 [ext_resource type="PackedScene" uid="uid://b1alw1q6f8upi" path="res://animation/FastZombie.tscn" id="2_bdfvf"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_flp8y"]

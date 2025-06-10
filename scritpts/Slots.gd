@@ -7,7 +7,7 @@ var current_selected_slot: String = ""
 var item_textures := {
 	1: preload("res://hud/mp5_sprite.png"),
 	2: preload("res://hud/vector_sprite.png"),
-	3: preload("res://hud/bayonet_sprite.png"), # Bajonetes ikona
+	3: preload("res://hud/bayonet_sprite.png"),
 }
 
 func _ready():

@@ -1,7 +1,7 @@
 [gd_scene load_steps=31 format=3 uid="uid://b2mva5p85ykjk"]
 
 [ext_resource type="Script" path="res://scritpts/PlayerСontroler.gd" id="1_2708k"]
-[ext_resource type="Script" path="res://main.gd" id="1_fc44f"]
+[ext_resource type="Script" path="res://scritpts/main.gd" id="1_fc44f"]
 [ext_resource type="Texture2D" uid="uid://c72dvicj44uhi" path="res://textures/wispy-grass-meadow_albedo.png" id="2_866pl"]
 [ext_resource type="Script" path="res://scritpts/ItemDropper.gd" id="2_x830r"]
 [ext_resource type="Texture2D" uid="uid://db4vyiu34mr80" path="res://textures/wispy-grass-meadow_ao.png" id="3_hlp27"]

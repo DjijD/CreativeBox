@@ -1,6 +1,6 @@
 [gd_scene load_steps=61 format=4 uid="uid://lx1kh6kpcbqp"]
 
-[ext_resource type="Script" path="res://weapons/vector.gd" id="1_uywy5"]
+[ext_resource type="Script" path="res://scritpts/vector.gd" id="1_uywy5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uesdr"]
 resource_name = "material"

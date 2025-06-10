@@ -19,7 +19,7 @@ func _ready():
 	set_process(false)
 	set_physics_process(false)
 
-	# Taimeris navigācijas gatavības pārbaudei
+	# Navigācijas sagatavošanas taimeris
 	nav_timer = Timer.new()
 	nav_timer.wait_time = 0.1
 	nav_timer.one_shot = false
@@ -27,10 +27,9 @@ func _ready():
 	add_child(nav_timer)
 	nav_timer.connect("timeout", Callable(self, "_check_nav_ready"))
 
-	# Uzbrukuma animācijas beigu apstrāde
+	# Uzbrukuma animācijas pabeigšanas apstrāde
 	anim_attack.connect("animation_finished", Callable(self, "_on_attack_animation_finished"))
 
-# Pārbauda, vai NavigationServer ir gatavs
 func _check_nav_ready():
 	var nav_map = NavigationServer3D.get_maps()
 	if nav_map.size() > 0 and NavigationServer3D.map_get_iteration_id(nav_map[0]) != 0:
@@ -41,7 +40,7 @@ func _check_nav_ready():
 		nav_timer.queue_free()
 		nav_timer = null
 
-# Atjauno mērķa pozīciju (X un Z)
+# Atjaunina mērķa pozīciju (X un Z koordinātas)
 func update_target_location(pos: Vector3) -> void:
 	target_position.x = pos.x
 	target_position.z = pos.z
@@ -50,7 +49,6 @@ func _physics_process(delta):
 	if not nav_ready:
 		return
 
-	# Ja zombijs uzbrūk, apstrādā uzbrukumu
 	if is_attacking:
 		var current_time = anim_attack.current_animation_position
 		if not damage_applied and current_time >= 0.6667:
@@ -62,7 +60,7 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 
-	# Ja spēlētājs atrodas priekšā, uzbrūk
+	# Ja starojums saskaras ar spēlētāju
 	if raycast.is_colliding():
 		var collider = raycast.get_collider()
 		if collider and collider.is_in_group("player"):
@@ -73,11 +71,10 @@ func _physics_process(delta):
 			move_and_slide()
 			return
 
-	# Kustība uz spēlētāju
+	# Kustība uz spēlētāja pusi
 	var move_target = Vector3(target_position.x, global_transform.origin.y, target_position.z)
 	var direction = (move_target - global_transform.origin).normalized()
 
-	# Pagriežas pret spēlētāju
 	var flat_target = move_target
 	flat_target.y = global_transform.origin.y
 	look_at(flat_target, Vector3.UP)
@@ -87,7 +84,6 @@ func _physics_process(delta):
 	velocity.z = direction.z * speed
 	velocity.y += GRAVITY * delta
 
-	# Atskaņo animāciju atkarībā no kustības
 	if direction.length() > 0.1:
 		_play_walk_animation()
 	else:
@@ -95,12 +91,12 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-# Atskaņo iešanas animāciju
+# Atskaņo staigāšanas animāciju
 func _play_walk_animation():
 	if not anim_player.is_playing() or anim_player.current_animation != "Walk":
 		anim_player.play("Walk")
 
-# Aptur iešanas animāciju
+# Aptur staigāšanas animāciju
 func _stop_walk_animation():
 	if anim_player.is_playing():
 		anim_player.stop()
@@ -112,19 +108,35 @@ func _play_attack_animation():
 		damage_applied = false
 		anim_attack.play("Punching")
 
-# Pabeidz uzbrukumu pēc animācijas
+# Notiek, kad uzbrukuma animācija ir pabeigta
 func _on_attack_animation_finished(anim_name: String):
 	if anim_name == "Punching":
 		is_attacking = false
 
-# Uzliek bojājumus, ja spēlētājs joprojām atrodas priekšā
+# Mēģina pielietot bojājumus, ja iespējams
 func _apply_damage_if_possible():
 	if raycast.is_colliding():
 		var collider = raycast.get_collider()
 		if collider and collider.is_in_group("player") and collider.has_method("take_damage"):
 			collider.take_damage(15)
 
-# Apstrādā triecienu konkrētā ķermeņa daļā
+# Publiskā metode — pretinieks saņem bojājumus no spēlētāja
+func take_damage(amount: int) -> void:
+	health -= amount
+	if health <= 0:
+		_die()
+	else:
+		_play_hurt_animation()
+
+# Nogalina pretinieku
+func _die():
+	queue_free()
+
+# Reakcija uz ievainojumu (var paplašināt)
+func _play_hurt_animation():
+	pass
+
+# Apstrādā trāpījumu noteiktā ķermeņa daļā
 func _process_hit(hit_area: Area3D) -> void:
 	var attachment = _get_parent_attachment_of_area(hit_area)
 	if attachment == null:
@@ -146,11 +158,9 @@ func _process_hit(hit_area: Area3D) -> void:
 
 	var damage = damage_map.get(attachment.name, 0)
 	if damage > 0:
-		health -= damage
-		if health <= 0:
-			queue_free()
+		take_damage(damage)
 
-# Atrod BoneAttachment3D mezglu, kas satur trāpīto laukumu
+# Meklē BoneAttachment3D, kuram pieder trāpītā zona
 func _get_parent_attachment_of_area(area_node: Node) -> BoneAttachment3D:
 	var current = area_node
 	while current != null:

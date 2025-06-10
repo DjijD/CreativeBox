@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dk0th0dxrxfn0"]
 
-[ext_resource type="Script" path="res://items/heavy_ammunition_box.gd" id="1_0lk7k"]
+[ext_resource type="Script" path="res://scritpts/heavy_ammunition_box.gd" id="1_0lk7k"]
 [ext_resource type="ArrayMesh" uid="uid://4cnvmiaq24ho" path="res://models/heavy_ammunition_box.obj" id="1_nctcv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fwp1b"]

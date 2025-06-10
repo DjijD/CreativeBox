@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://das7bwdasxely"]
+[gd_scene load_steps=18 format=4 uid="uid://das7bwdasxely"]
 
 [ext_resource type="Script" path="res://scritpts/HitZone.gd" id="1_u6i8i"]
 
@@ -1350,6 +1350,10 @@ _data = {
 "Punching": SubResource("Animation_o3xaq")
 }
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_o15fd"]
+radius = 9.84539
+height = 19.6908
+
 [node name="Zombie" type="Node3D"]
 transform = Transform3D(0.0112092, 0, 0, 0, 0.0112092, 0, 0, 0, 0.0112092, 0, 0, 0)
 
@@ -1966,3 +1970,9 @@ libraries = {
 libraries = {
 "": SubResource("AnimationLibrary_xtwrr")
 }
+
+[node name="Hitbox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(11.5831, 0, 0, 0, 11.5831, 0, 0, 0, 11.5831, 0, 101.932, 0)
+shape = SubResource("CapsuleShape3D_o15fd")

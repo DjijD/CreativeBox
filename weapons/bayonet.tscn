@@ -1,9 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://dumhd6f8r2r0h"]
+[gd_scene load_steps=3 format=3 uid="uid://dumhd6f8r2r0h"]
 
 [ext_resource type="ArrayMesh" uid="uid://cgp3t4v5hvvnw" path="res://models/bayonet.obj" id="1_fbt2b"]
+[ext_resource type="Script" path="res://scritpts/bayonet.gd" id="2_ndh0u"]
 
 [node name="Bayonet" type="MeshInstance3D"]
 transform = Transform3D(-1.12975e-08, 3.07063e-09, 0.263165, 0.0351239, 0.26081, -1.53531e-09, -0.26081, 0.0351239, -1.16062e-08, 0.445412, -0.305969, -0.792468)
 cast_shadow = 0
 mesh = ExtResource("1_fbt2b")
 skeleton = NodePath("../../../..")
+script = ExtResource("2_ndh0u")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
