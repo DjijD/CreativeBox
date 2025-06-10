@@ -1,8 +1,13 @@
+<<<<<<< Updated upstream
 [gd_scene load_steps=16 format=3 uid="uid://bh6ptxinwjsa6"]
+=======
+[gd_scene load_steps=11 format=3 uid="uid://bh6ptxinwjsa6"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Texture2D" uid="uid://dj27ipi72f3em" path="res://hud/heath_bar_background.png" id="1_i7egh"]
 [ext_resource type="Texture2D" uid="uid://bj5qlqq7vygpc" path="res://hud/heath_bar.png" id="2_akdd5"]
 [ext_resource type="Script" path="res://scritpts/HeathBar.gd" id="3_lk00p"]
+<<<<<<< Updated upstream
 [ext_resource type="Texture2D" uid="uid://ddipnn577kfe8" path="res://hud/slot.png" id="4_0igjc"]
 [ext_resource type="Script" path="res://scritpts/Slots.gd" id="5_sq5pg"]
 [ext_resource type="Script" path="res://scritpts/ammo.gd" id="6_xsf3a"]
@@ -10,6 +15,10 @@
 [ext_resource type="Texture2D" uid="uid://fjqwsg8sjhji" path="res://hud/heavy_ammunition_sprite.png" id="8_hdcgw"]
 [ext_resource type="Script" path="res://scritpts/light_ammo_label.gd.gd" id="8_llx8b"]
 [ext_resource type="Script" path="res://scritpts/heavy_ammo_label.gd" id="10_3drqq"]
+=======
+[ext_resource type="Texture2D" uid="uid://c5onnb1vsk7bk" path="res://hud/slot.png" id="4_0igjc"]
+[ext_resource type="Script" path="res://scritpts/Slots.gd" id="5_sq5pg"]
+>>>>>>> Stashed changes
 
 [sub_resource type="GDScript" id="GDScript_hk1mn"]
 
@@ -45,6 +54,15 @@ texture_progress = ExtResource("2_akdd5")
 texture_progress_offset = Vector2(5, 5)
 script = ExtResource("3_lk00p")
 
+<<<<<<< Updated upstream
+=======
+[node name="Center" type="Sprite2D" parent="."]
+position = Vector2(576, 328)
+scale = Vector2(0.0799999, 0.0789457)
+flip_h = true
+flip_v = true
+
+>>>>>>> Stashed changes
 [node name="slots" type="Node2D" parent="."]
 position = Vector2(416, 560)
 script = ExtResource("5_sq5pg")
