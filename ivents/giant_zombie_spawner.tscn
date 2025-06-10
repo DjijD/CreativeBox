@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgyibrisrxqce"]
+
+[ext_resource type="Script" path="res://giant_zombie_spawner.gd" id="1_yxrcg"]
+[ext_resource type="PackedScene" uid="uid://b82aehi2t285j" path="res://entitys/giant_zombie_body.tscn" id="2_jxw0b"]
+
+[node name="GiantZombieSpawner" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.76518, 1.81437, -6.7866)
+script = ExtResource("1_yxrcg")
+zombie_scene = ExtResource("2_jxw0b")

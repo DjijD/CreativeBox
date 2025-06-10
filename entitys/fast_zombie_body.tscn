@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://brmo1phfw5gyf"]
+
+[ext_resource type="Script" path="res://FastZombieAI.gd" id="1_cbror"]
+[ext_resource type="PackedScene" uid="uid://b1alw1q6f8upi" path="res://animation/FastZombie.tscn" id="2_bdfvf"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_flp8y"]
+height = 2.65817
+
+[node name="FastZombieBody" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5254, 2.03159, 0)
+script = ExtResource("1_cbror")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.842199, 0, 0, 0, 0.842199, 0, 0, 0, 0.842199, 0.114265, -0.364066, 0.163425)
+shape = SubResource("CapsuleShape3D_flp8y")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.397)
+target_position = Vector3(0, 0, 1.3)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
+
+[node name="FastZombie" parent="." instance=ExtResource("2_bdfvf")]
+transform = Transform3D(0.0114729, 0, 0, 0, 0.0114729, 0, 0, 0, 0.0114729, 0, -1.5, 0)

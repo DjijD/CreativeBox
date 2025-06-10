@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://b82aehi2t285j"]
+
+[ext_resource type="Script" path="res://GiantZombieBody.gd" id="1_u50vo"]
+[ext_resource type="PackedScene" uid="uid://dnu4ciq2opr1y" path="res://animation/GiantZombie.tscn" id="2_djl7j"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uvxny"]
+height = 2.65817
+
+[node name="GiantZombieBody" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1001, 2.41468, 0)
+script = ExtResource("1_u50vo")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.39726)
+target_position = Vector3(0, 0, 2.7)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.38002, 0, 0, 0, 1.38002, 0, 0, 0, 1.38002, 0.114265, 0.266151, 0.163425)
+shape = SubResource("CapsuleShape3D_uvxny")
+
+[node name="GiantZombie" parent="." instance=ExtResource("2_djl7j")]
+transform = Transform3D(0.0174329, 0, 0, 0, 0.0174329, 0, 0, 0, 0.0174329, 0, -1.5, 0)

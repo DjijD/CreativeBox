@@ -1,16 +1,4 @@
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-[gd_scene load_steps=29 format=3 uid="uid://b2mva5p85ykjk"]
-=======
-[gd_scene load_steps=17 format=3 uid="uid://b2mva5p85ykjk"]
->>>>>>> Stashed changes
-=======
-[gd_scene load_steps=17 format=3 uid="uid://b2mva5p85ykjk"]
->>>>>>> Stashed changes
-=======
-[gd_scene load_steps=17 format=3 uid="uid://b2mva5p85ykjk"]
->>>>>>> Stashed changes
+[gd_scene load_steps=31 format=3 uid="uid://b2mva5p85ykjk"]
 
 [ext_resource type="Script" path="res://scritpts/PlayerСontroler.gd" id="1_2708k"]
 [ext_resource type="Script" path="res://main.gd" id="1_fc44f"]
@@ -25,24 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://ccsvkumxei6oo" path="res://textures/wispy-grass-meadow_normal-ogl.png" id="6_nfg8v"]
 [ext_resource type="Texture2D" uid="uid://dh8x2ldnjo0oi" path="res://textures/wispy-grass-meadow_roughness.png" id="7_hv3u2"]
 [ext_resource type="PackedScene" uid="uid://bh6ptxinwjsa6" path="res://hud.tscn" id="8_exu22"]
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 [ext_resource type="PackedScene" uid="uid://g1xgtbaeu362" path="res://items/mp5p.tscn" id="9_abyuu"]
 [ext_resource type="PackedScene" uid="uid://drq7px2cl531r" path="res://items/vectorp.tscn" id="11_1h7e3"]
 [ext_resource type="PackedScene" uid="uid://d4eufmeemj72f" path="res://items/bayonetp.tscn" id="12_m104d"]
 [ext_resource type="PackedScene" uid="uid://d4gfrsysw1e8p" path="res://objects/box.tscn" id="15_su852"]
 [ext_resource type="PackedScene" uid="uid://dk0th0dxrxfn0" path="res://items/heavy_ammunition_box.tscn" id="16_ggtmi"]
-[ext_resource type="PackedScene" uid="uid://bl612xcmpy8b3" path="res://entitys/zombie_body.tscn" id="18_8ruf1"]
-=======
-[ext_resource type="PackedScene" uid="uid://c3nb87ecb1i3v" path="res://mp5p.tscn" id="9_abyuu"]
->>>>>>> Stashed changes
-=======
-[ext_resource type="PackedScene" uid="uid://c3nb87ecb1i3v" path="res://mp5p.tscn" id="9_abyuu"]
->>>>>>> Stashed changes
-=======
-[ext_resource type="PackedScene" uid="uid://c3nb87ecb1i3v" path="res://mp5p.tscn" id="9_abyuu"]
->>>>>>> Stashed changes
+[ext_resource type="PackedScene" uid="uid://bem4v5y1lgpv8" path="res://ivents/fast_zombie_spawner.tscn" id="21_i44wt"]
+[ext_resource type="PackedScene" uid="uid://dhgo4barq0qnr" path="res://ivents/zombie_spawner.tscn" id="22_awqph"]
+[ext_resource type="PackedScene" uid="uid://cgyibrisrxqce" path="res://ivents/giant_zombie_spawner.tscn" id="22_n3vth"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_52syj"]
 
@@ -89,9 +67,9 @@ ambient_light_source = 2
 ambient_light_color = Color(0.393086, 0.393086, 0.393085, 0.690196)
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_lc16x"]
-vertices = PackedVector3Array(-39.5, 11.9931, -39.5, -39.5, 11.9931, 39.5, 39.5, 11.9931, 39.5, 39.5, 11.9931, -39.5)
+vertices = PackedVector3Array(-39.5, 16.8531, -39.5, -39.5, 16.8531, 39.5, 39.5, 16.8531, 39.5, 39.5, 16.8531, -39.5)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
-cell_height = 6.0
+cell_height = 8.43
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68ksu"]
 disable_ambient_light = true
@@ -168,35 +146,8 @@ collision_mask = 2
 
 [node name="HUD" parent="PlayerCharacter" instance=ExtResource("8_exu22")]
 
-<<<<<<< Updated upstream
 [node name="BagOfPotrons" type="Node3D" parent="PlayerCharacter"]
 script = ExtResource("5_r88i3")
-=======
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-collision_layer = 3
-collision_mask = 3
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(40, 0, 0, 0, 6, 0, 0, 0, 40, 0, 0, 0)
-material_override = SubResource("StandardMaterial3D_68ksu")
-mesh = SubResource("PlaneMesh_t7fda")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("WorldBoundaryShape3D_qxvgr")
-
-[node name="StaticBody3D2" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.2009)
-collision_layer = 3
-collision_mask = 3
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.993116, 0)
-mesh = SubResource("CylinderMesh_xgkup")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CylinderShape3D_8j2rq")
->>>>>>> Stashed changes
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, -7.79022, 0)
@@ -208,9 +159,6 @@ shadow_blur = 0.89
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0wn0b")
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 [node name="RigidBody3D3" parent="." instance=ExtResource("9_abyuu")]
 transform = Transform3D(1, 0, 0, 0, 0.462646, -0.886543, 0, 0.886543, 0.462646, 0.345816, 0.37662, 9.22681)
 
@@ -256,17 +204,30 @@ mesh = SubResource("CylinderMesh_xgkup")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CylinderShape3D_8j2rq")
 
-[node name="ZombyBody" parent="NavigationRegion3D" instance=ExtResource("18_8ruf1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.22427, -3.52246)
-=======
-[node name="RigitBody3D" parent="." instance=ExtResource("9_abyuu")]
-transform = Transform3D(1, 0, 0, 0, 0.462646, -0.886543, 0, 0.886543, 0.462646, -3.56875, 3.28787, 11.6577)
->>>>>>> Stashed changes
-=======
-[node name="RigitBody3D" parent="." instance=ExtResource("9_abyuu")]
-transform = Transform3D(1, 0, 0, 0, 0.462646, -0.886543, 0, 0.886543, 0.462646, -3.56875, 3.28787, 11.6577)
->>>>>>> Stashed changes
-=======
-[node name="RigitBody3D" parent="." instance=ExtResource("9_abyuu")]
-transform = Transform3D(1, 0, 0, 0, 0.462646, -0.886543, 0, 0.886543, 0.462646, -3.56875, 3.28787, 11.6577)
->>>>>>> Stashed changes
+[node name="ZombieSpawner" parent="NavigationRegion3D" instance=ExtResource("22_awqph")]
+
+[node name="FastZombieSpawner" parent="NavigationRegion3D" instance=ExtResource("21_i44wt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.11581, 0.578485, -4.24022)
+
+[node name="GiantZombieSpawner" parent="NavigationRegion3D" instance=ExtResource("22_n3vth")]
+
+[node name="light_ammunition_box2" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.46318, 0.461504, -1.18515)
+
+[node name="light_ammunition_box3" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.36597, 0.35388, -1.336)
+
+[node name="light_ammunition_box4" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.62571, 0.227177, 0.145665)
+
+[node name="light_ammunition_box5" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.7798, 0.266728, -4.63216)
+
+[node name="light_ammunition_box6" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.83205, 0.222562, 1.70617)
+
+[node name="light_ammunition_box7" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.78224, 0.130688, -5.67858)
+
+[node name="light_ammunition_box8" parent="." instance=ExtResource("6_cgvjt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4355, 0.247354, -4.29815)
