@@ -1,0 +1,167 @@
+[gd_scene load_steps=20 format=3 uid="uid://b2mva5p85ykjk"]
+
+[ext_resource type="Script" path="res://scritpts/PlayerСontroler.gd" id="1_2708k"]
+[ext_resource type="Texture2D" uid="uid://c72dvicj44uhi" path="res://textures/wispy-grass-meadow_albedo.png" id="2_866pl"]
+[ext_resource type="Script" path="res://ItemDropper.gd" id="2_x830r"]
+[ext_resource type="Texture2D" uid="uid://db4vyiu34mr80" path="res://textures/wispy-grass-meadow_ao.png" id="3_hlp27"]
+[ext_resource type="Texture2D" uid="uid://bk3krfu036qog" path="res://textures/wispy-grass-meadow_height.png" id="4_wt4r6"]
+[ext_resource type="Texture2D" uid="uid://beujlued57xqc" path="res://textures/wispy-grass-meadow_metallic.png" id="5_561st"]
+[ext_resource type="Texture2D" uid="uid://ccsvkumxei6oo" path="res://textures/wispy-grass-meadow_normal-ogl.png" id="6_nfg8v"]
+[ext_resource type="Texture2D" uid="uid://dh8x2ldnjo0oi" path="res://textures/wispy-grass-meadow_roughness.png" id="7_hv3u2"]
+[ext_resource type="PackedScene" uid="uid://bh6ptxinwjsa6" path="res://hud.tscn" id="8_exu22"]
+[ext_resource type="PackedScene" uid="uid://g1xgtbaeu362" path="res://items/mp5p.tscn" id="9_abyuu"]
+[ext_resource type="Texture2D" uid="uid://cjfvcyfwie6eo" path="res://hud/center.png" id="10_xrfae"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_52syj"]
+
+[sub_resource type="GDScript" id="GDScript_4cs4s"]
+script/source = "extends Node
+
+@export var camera_path: NodePath
+@export var mp5_scene: PackedScene = preload(\"res://items/mp5p.tscn\")
+
+func drop_item_from_camera():
+	if camera_path.is_empty():
+		print(\"Camera path is not set!\")
+		return
+
+	var camera = get_node(camera_path) as Camera3D
+	if camera == null:
+		print(\"Camera not found at path: \", camera_path)
+		return
+
+	# Создаём экземпляр сцены MP5 (RigidBody3D)
+	var mp5_instance = mp5_scene.instantiate() as RigidBody3D
+	if mp5_instance == null:
+		print(\"Failed to instantiate MP5 scene!\")
+		return
+
+	# Позиция перед камерой + немного вверх
+	var forward_offset = camera.global_transform.basis.z * -1.0
+	var up_offset = Vector3.UP * 0.5
+	var spawn_position = camera.global_transform.origin + forward_offset + up_offset
+	mp5_instance.global_transform.origin = spawn_position
+
+	# Добавляем объект в текущую сцену
+	get_tree().get_current_scene().add_child(mp5_instance)
+
+	# Применяем импульс вперёд и вверх
+	var impulse = forward_offset * 4.0 + Vector3.UP * 2.0
+	mp5_instance.apply_impulse(Vector3.ZERO, impulse)
+"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68ksu"]
+disable_ambient_light = true
+albedo_texture = ExtResource("2_866pl")
+metallic = 0.8
+metallic_specular = 0.36
+metallic_texture = ExtResource("5_561st")
+roughness = 0.96
+roughness_texture = ExtResource("7_hv3u2")
+normal_enabled = true
+normal_scale = -2.3
+normal_texture = ExtResource("6_nfg8v")
+ao_enabled = true
+ao_light_affect = 0.4
+ao_texture = ExtResource("3_hlp27")
+heightmap_enabled = true
+heightmap_scale = -0.8
+heightmap_deep_parallax = true
+heightmap_min_layers = 24
+heightmap_max_layers = 48
+heightmap_flip_tangent = true
+heightmap_flip_binormal = true
+heightmap_texture = ExtResource("4_wt4r6")
+heightmap_flip_texture = true
+backlight_enabled = true
+backlight = Color(0.0937103, 0.149063, 0.0392299, 1)
+uv1_scale = Vector3(4, 4, 4)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t7fda"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_qxvgr"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xgkup"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8j2rq"]
+
+[sub_resource type="Environment" id="Environment_0wn0b"]
+background_mode = 1
+background_color = Color(0.494118, 0.737255, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.393086, 0.393086, 0.393085, 0.690196)
+
+[node name="main" type="Node3D"]
+
+[node name="PlayerCharacter" type="CharacterBody3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1.13119, 0)
+collision_mask = 2
+script = ExtResource("1_2708k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerCharacter"]
+shape = SubResource("CapsuleShape3D_52syj")
+
+[node name="Camera3D" type="Camera3D" parent="PlayerCharacter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.34667, 0, 1, 0)
+fov = 71.6
+script = SubResource("GDScript_4cs4s")
+
+[node name="ItemDropper" type="Node3D" parent="PlayerCharacter/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1017, 0)
+script = ExtResource("2_x830r")
+
+[node name="HUD" parent="PlayerCharacter" instance=ExtResource("8_exu22")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(40, 0, 0, 0, 6, 0, 0, 0, 40, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_68ksu")
+mesh = SubResource("PlaneMesh_t7fda")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_qxvgr")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20.2009)
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.993116, 0)
+mesh = SubResource("CylinderMesh_xgkup")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_8j2rq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, -7.79022, 0)
+shadow_enabled = true
+shadow_transmittance_bias = -16.0
+shadow_opacity = 0.78
+shadow_blur = 0.89
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0wn0b")
+
+[node name="RigitBody3D" parent="." instance=ExtResource("9_abyuu")]
+transform = Transform3D(1, 0, 0, 0, 0.462646, -0.886543, 0, 0.886543, 0.462646, -0.801764, 2.79261, 5.24881)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.5
+offset_top = -2.5
+offset_right = 2.5
+offset_bottom = 2.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("10_xrfae")
+expand_mode = 1

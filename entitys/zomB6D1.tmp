@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bl612xcmpy8b3"]
+
+[ext_resource type="Script" path="res://entitys/ZombieAI.gd" id="1_3gunf"]
+[ext_resource type="PackedScene" uid="uid://das7bwdasxely" path="res://animation/Zombie.tscn" id="1_j1uk3"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_xxqsk"]
+height = 2.65817
+
+[node name="ZombieBody" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49941, -3.52246)
+script = ExtResource("1_3gunf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.842199, 0, 0, 0, 0.842199, 0, 0, 0, 0.842199, 0.114265, -0.364066, 0.163425)
+shape = SubResource("CapsuleShape3D_xxqsk")
+
+[node name="Zombie" parent="." instance=ExtResource("1_j1uk3")]
+transform = Transform3D(0.0109249, 0, 0, 0, 0.0109249, 0, 0, 0, 0.0109249, 0, -1.5, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.39726)
+target_position = Vector3(0, 0, 1.3)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true

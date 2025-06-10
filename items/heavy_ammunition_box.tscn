@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dk0th0dxrxfn0"]
+
+[ext_resource type="Script" path="res://items/heavy_ammunition_box.gd" id="1_0lk7k"]
+[ext_resource type="ArrayMesh" uid="uid://4cnvmiaq24ho" path="res://models/heavy_ammunition_box.obj" id="1_nctcv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fwp1b"]
+size = Vector3(0.419861, 0.25238, 0.62146)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_drg71"]
+
+[node name="heavy_ammunition_box" type="RigidBody3D"]
+script = ExtResource("1_0lk7k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.124718, 0, 0, 0, 0.124718, 0, 0, 0, 0.124718, 0, 0, 0)
+mesh = ExtResource("1_nctcv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00186157, -9.15527e-05, 0.00164795)
+shape = SubResource("BoxShape3D_fwp1b")
+
+[node name="PickupZone" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupZone"]
+transform = Transform3D(1.23624, 0, 0, 0, 1.23624, 0, 0, 0, 1.23624, 0, 0, 0)
+shape = SubResource("SphereShape3D_drg71")

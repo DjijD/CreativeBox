@@ -19,53 +19,50 @@ var health = 100.0
 const MAX_HEALTH = 100.0
 
 var noclip_enabled := false
-
-# Для урона от падения
 var fall_start_y = 0.0
 var was_on_floor = true
-
-# Позиция для респауна
 var spawn_position = Vector3.ZERO
-
-# Слоты
 var selected_slot_index := 0
 
 @onready var slots_manager = get_node("/root/main/PlayerCharacter/HUD/slots")
+@onready var weapon_handler = $Camera3D/HeldWeaponController
 
 func _ready():
+	# Pievienojam spēlētāju grupai un nofiksējam peli uz logu
+	add_to_group("player")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	initial_camera_position = $Camera3D.position
+	# Pārslēdzam procesus atkarībā no noclip režīma
 	set_process(noclip_enabled)
 	set_physics_process(!noclip_enabled)
 	spawn_position = global_transform.origin
 
 func _input(event):
+	# Pārslēdz noclip režīmu ar taustiņu
 	if event.is_action_pressed("toggle_noclip"):
 		noclip_enabled = !noclip_enabled
 		set_process(noclip_enabled)
 		set_physics_process(!noclip_enabled)
 
+	# Izvēlas inventāra slotu ar ciparu taustiņiem
 	if event is InputEventKey and event.pressed:
 		match event.keycode:
-			KEY_1:
-				select_slot(0)
-			KEY_2:
-				select_slot(1)
-			KEY_3:
-				select_slot(2)
-			KEY_4:
-				select_slot(3)
+			KEY_1: select_slot(0)
+			KEY_2: select_slot(1)
+			KEY_3: select_slot(2)
+			KEY_4: select_slot(3)
 
+	# Izvēlas slotu ar peles ritināšanu
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			select_slot((selected_slot_index - 1) % 4)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			select_slot((selected_slot_index + 1) % 4)
 
+	# Kameras pagrieziens ar peles kustību
 	if event is InputEventMouseMotion:
 		var dx = -event.relative.x * 0.005
 		var dy = -event.relative.y * 0.005
-
 		var cam = $Camera3D
 		if cam:
 			rotate_y(dx)
@@ -74,14 +71,26 @@ func _input(event):
 func select_slot(index: int):
 	selected_slot_index = index
 	if is_instance_valid(slots_manager):
-		slots_manager.update_selection("slot" + str(index + 1))
+		var slot_name = "slot" + str(index + 1)
+		slots_manager.update_selection(slot_name)
+		update_weapon_visibility(slot_name)
+
+func update_weapon_visibility(slot_name: String):
+	var slot_data = slots_manager.slots_data.get(slot_name)
+	# Rāda ieroču ja slotā ir derīgs priekšmets (piem., slot3)
+	if slot_name == "slot3" and slot_data and slot_data.item_id != null:
+		weapon_handler.show_weapon(slot_data.item_id)
+	else:
+		weapon_handler.remove_weapon()
 
 func _physics_process(delta: float) -> void:
 	if noclip_enabled:
+		# Noclip režīmā atgriežas fizika
 		return
 
 	var on_floor_now = is_on_floor()
 
+	# Bojājumi no krišanas, ja ir nokritis no augstuma
 	if on_floor_now:
 		if not was_on_floor:
 			var fall_distance = fall_start_y - global_transform.origin.y
@@ -94,9 +103,11 @@ func _physics_process(delta: float) -> void:
 			fall_start_y = global_transform.origin.y
 		was_on_floor = false
 
+	# Ja veselība beigusies, atjauno spēlētāju
 	if health <= 0:
 		respawn()
 
+	# Ja spēlētājs nav gaisā, apstrādā kustību
 	if not on_floor_now:
 		velocity += get_gravity() * delta
 		is_walking = false
@@ -128,11 +139,13 @@ func _physics_process(delta: float) -> void:
 			velocity.z = move_toward(velocity.z, 0, SPEED_SMOOTH)
 			is_walking = false
 
+	# Lēciens, ja nospiesta atbilstošā poga un spēlētājs uz zemes
 	if Input.is_action_just_pressed("jump") and on_floor_now:
 		velocity.y = JUMP_VELOCITY
 
 	move_and_slide()
 
+	# Kamera kustas šūpojoties soļojot
 	var cam = $Camera3D
 	if on_floor_now and is_walking:
 		sway_timer += delta * SWAY_SPEED
@@ -148,6 +161,7 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	if noclip_enabled:
+		# Noclip režīmā pārvieto spēlētāju pēc kameras virziena
 		var cam = $Camera3D
 		var input_dir := Vector3.ZERO
 

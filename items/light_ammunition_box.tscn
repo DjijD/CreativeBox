@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://drlcdi233gul0"]
+
+[ext_resource type="ArrayMesh" uid="uid://5wnihkrvky4j" path="res://models/light_ammunition_box.obj" id="1_g4hgb"]
+[ext_resource type="Script" path="res://items/light_ammunition_box.gd" id="1_irll4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hq8yk"]
+size = Vector3(0.268799, 0.170563, 0.404785)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yu1np"]
+
+[node name="light_ammunition_box" type="RigidBody3D"]
+script = ExtResource("1_irll4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.0809227, 0, 0, 0, 0.0809227, 0, 0, 0, 0.0809227, 0, 0, 0)
+mesh = ExtResource("1_g4hgb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00378418, 0.00102234, 0.00341797)
+shape = SubResource("BoxShape3D_hq8yk")
+
+[node name="PickupZone" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupZone"]
+shape = SubResource("SphereShape3D_yu1np")
