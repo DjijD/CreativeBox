@@ -38,11 +38,9 @@ func _process(delta: float) -> void:
 			weapon_parent.position = start_position
 			returning = false
 			raycast_created = false
-			print("Готов к следующему удару: RayCast можно создавать снова.")
 
 func _start_stab() -> void:
 	is_stabbing = true
-	print("Начат удар штыком.")
 
 func _can_stab() -> bool:
 	if weapon_parent.position.is_equal_approx(Vector3.ZERO):
@@ -50,30 +48,25 @@ func _can_stab() -> bool:
 
 	if player.has_method("is_on_floor") and "is_sprinting" in player and player.has_method("get"):
 		if player.is_sprinting > 0.0 and player.is_on_floor() and not player.get("noclip_enabled"):
-			print("Удар невозможен: игрок спринтует.")
 			return false
 
 	var raycast_node_path = "/root/main/PlayerCharacter/Camera3D/HeldWeaponController/RayCastBayonet"
 	var raycast: RayCast3D = get_node_or_null(raycast_node_path)
 	if raycast and raycast.is_colliding():
-		print("Удар невозможен: RayCastBayonet уже сталкивается с чем-то.")
 		return false
 
 	return true
 
 func _spawn_and_remove_raycast() -> void:
 	if raycast_created:
-		print("RayCast уже создан, новый не создаётся.")
 		return
 
 	var temp_raycast: RayCast3D = raycast_scene.instantiate()
 	if temp_raycast:
 		held_weapon_controller.add_child(temp_raycast)
-		temp_raycast.name = "TemporaryRayCast"  # для отладки в дереве
+		temp_raycast.name = "TemporaryRayCast"  # pagaidu mezgls priekš testa
 		temp_raycast.position = Vector3.ZERO
-		print("RayCast создан: ", temp_raycast)
 		raycast_created = true
 		await get_tree().process_frame
 		if temp_raycast and temp_raycast.is_inside_tree():
 			temp_raycast.queue_free()
-			print("RayCast удалён: ", temp_raycast)
